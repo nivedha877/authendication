@@ -1,0 +1,72 @@
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Google</title>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <style>
+    .hidden {
+      display: none;
+    }
+    .profile-img {
+      border-radius: 50%;
+      width: 100px;
+     height: 100px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Login with Google</h2>
+
+  <div
+    id="g_id_onload"
+    data-client_id="1002168315036-bertllfn0a0lbg4o33g5ntpgof2v78o6.apps.googleusercontent.com"
+    data-callback="handleCredentialResponse"
+    data-auto_prompt="false"
+  ></div>
+
+  <div class="g_id_signin" data-type="standard"></div>
+
+  <div id="user-info" class="hidden">
+    <h2 id="welcome-name"></h2> 
+  
+    <p id="email"></p>
+    <button onclick="signOut()">Sign Out</button>
+  </div>
+
+  <script>
+    let user = {};
+
+    function handleCredentialResponse(response) {
+      user = parseJwt(response.credential);
+      document.getElementById("welcome-name").textContent = "Welcome, " + user.name;
+      document.getElementById("email").textContent = user.email;
+     
+
+      document.querySelector(".e_id_signin").classList.add("hidden");
+      document.getElementById("user-info").classList.remove("hidden");
+    }
+
+    function parseJwt(token) 
+    {
+      const base64Url = token.split('.')[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const jsonPayload = decodeURIComponent(
+        atob(base64).split('').map(c =>
+          '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+        ).join('')
+      );
+       return JSON.parse(jsonPayload);
+    }
+
+    function signOut() {
+      google.accounts.id.disableAutoSelect();
+      user = {};
+      document.getElementById("user-info").classList.add("hidden");
+      document.querySelector(".e_id_signin").classList.remove("hidden");
+      alert("Signed out of the account.");
+    }
+  </script>
+</body>
+</html> 
