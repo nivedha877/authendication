@@ -1,0 +1,51 @@
+ 
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    .hidden-text {
+      display: none;
+    }
+  </style>
+  </head>
+  <body>
+    <p >The DOMContentLoaded event fires when the HTML document 
+      has been completely parsed, and all deferred scripts have downloaded and executed. 
+      It doesn't wait for other things like images, subframes, and async scripts to finish loading.
+    </p>
+      <div id="DOMMoreText" class="hidden-text">
+      DOMContentLoaded does not wait for stylesheets to load, however deferred scripts do wait for stylesheets, 
+      and the DOMContentLoaded event is queued after deferred scripts. Also, scripts which aren't deferred or asyn
+      will wait for already-parsed stylesheets to load.A different event, load, should be used only to detect a fully
+      -loaded page. It is a common mistake to use load where DOMContentLoaded would be more appropriate.This event is not 
+      cancelable.
+</div>
+     
+  <button id="DOMtextmore" onclick="Text()">Read more</button>
+<script>
+ function Text()
+  {
+    var text = document.getElementById("DOMMoreText");
+    var btn = document.getElementById("DOMtextmore");
+
+    if (text.style.display === "none" || text.classList.contains("hidden-text"))
+     {
+      text.style.display = "block";
+       text.classList.remove("hidden-text");
+      btn.textContent = "Read less";
+    } 
+    else
+     {
+      text.style.display = "none";
+     text.classList.remove("hidden-text");
+      btn.textContent = "Read more";
+    }
+  } 
+  </script>
+
+  </body>
+  </html>
+ 

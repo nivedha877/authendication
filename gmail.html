@@ -34,21 +34,34 @@
     <p id="email"></p>
     <button onclick="signOut()">Sign Out</button>
   </div>
+  <div id ="home" style="display: none;">
+  <p>welocome</p>
+  </div>
+
 
   <script>
     let user = {};
 
     function handleCredentialResponse(response) {
       user = parseJwt(response.credential);
-      document.getElementById("welcome-name").textContent = "Welcome, " + user.name;
-      document.getElementById("email").textContent = user.email;
-     
+      localStorage.setItem("user", JSON.stringify(user));
+      showUser(user);
+    }
 
-      document.querySelector(".e_id_signin").classList.add("hidden");
+
+    function showUser(userData) 
+    {
+      document.getElementById("welcome-name").textContent = "Welcome, " + userData.name;
+      document.getElementById("email").textContent = userData.email;
+      document.getElementById("profile-pic").src = userData.picture;
+
+      document.querySelector(".g_id_signin").classList.add("hidden");
       document.getElementById("user-info").classList.remove("hidden");
     }
 
+
     function parseJwt(token) 
+
     {
       const base64Url = token.split('.')[1];
       const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -59,7 +72,6 @@
       );
        return JSON.parse(jsonPayload);
     }
-
     function signOut() {
       google.accounts.id.disableAutoSelect();
       user = {};
@@ -67,6 +79,7 @@
       document.querySelector(".e_id_signin").classList.remove("hidden");
       alert("Signed out of the account.");
     }
+  
   </script>
 </body>
 </html> 

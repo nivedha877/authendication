@@ -24,7 +24,7 @@
 
     facebooklogin.addEventListener("click", function(event){
     // event.preventDefault();
-    alert("hi");
+    
     signInWithPopup(auth,provider)
     .then((result)=>{
     const user = result.user;

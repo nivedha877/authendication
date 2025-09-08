@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html>
+<body>
+
+<div id="loginPage">
+  <h2>Login</h2>
+  Email:<input type="email" id="email" ><br><br>
+  Password:<input type="password" id="password"><br><br>
+  <button onclick="login()">Login</button>
+</div>
+
+<div id="homePage" style="display:none;">
+  <h2>Welcome!</h2>
+  <button onclick="logout()">Logout</button>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () =>
+   {
+    var email = localStorage.getItem("email");
+  
+    console.log("store_mail:",email)
+    
+    if (email !== null && email !== "") 
+    {
+      document.getElementById("loginPage").style.display = "none";
+      document.getElementById("homePage").style.display = "block";
+    }
+  });
+
+  
+  function login() {
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
+ 
+    if (email !== null && email !== "" && password !== null && password !== "") 
+    {
+      localStorage.setItem("email", email);
+      
+     
+    } 
+    else
+     {
+      alert("enter email and password.");
+    }
+  }
+
+  
+  function logout() 
+  {
+    localStorage.removeItem("email");
+    document.getElementById("loginPage").style.display = "block";
+    document.getElementById("homePage").style.display = "none";
+  }
+</script>
+
+</body>
+</html>
